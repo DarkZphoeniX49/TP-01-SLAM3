@@ -17,8 +17,7 @@
                 <label><b>Mot de passe</b></label>
                 <input type="password" placeholder="Entrer le mot de passe" name="password" required>
 
-                <input type="submit" id='submit' value='LOG utilisateur' >
-                <?php
+                <input type="submit" id='submit' value='sinscire'>       <?php
                 // Code de vérification 
                 ?>
             </form>
