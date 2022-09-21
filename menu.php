@@ -8,6 +8,12 @@
 </head>
 <body>
     <?php 
+     session_start();
+     $servername = 'localhost';
+             $dbname='slamtp';
+             $username = 'user2';
+             $password = '1234';
+        $_SESSION["connect"]=0;
         echo "bienvenu".$_SESSION["nom"];
     
     

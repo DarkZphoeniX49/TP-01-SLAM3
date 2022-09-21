@@ -12,9 +12,10 @@
 	
 	session_start();
     $servername = 'localhost';
-    $dbname='bddbdr';
+    $dbname='slamtp';
     $username = 'user2';
     $password = '1234';
+    $red=$_SESSION["connect"];
  
 ?>
 

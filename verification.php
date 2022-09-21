@@ -12,45 +12,34 @@
 
     <?php 
 
-    session_start();
-
-    try{
-            $servername = 'localhost';
+session_start();
+$servername = 'localhost';
         $dbname='slamtp';
         $username = 'user2';
         $password = '1234';
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $_SESSION['connect']=0;
-        $_POST["username"]=$username;
-        $_POST["password"]=$password;
+        try{
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $nom=$_POST["username"];
+            $pwd=$_POST["password"];
+            $_SESSION["nom"]=$nom;
 
-        $_SESSION["nom"]=$username;
-        $_SESSION["mdp"]=$password;
-    
-        $req=$conn->prepare("SELECT count(*) FROM connexion where 
-        nom = '.$username.' AND  mdp='.$password.'; ");
-        $req->execute();
-        $result=$req->fetch();
-
-        
-
-        if($result !==0)
-        {
-            echo "connection réussi ! ";
-            Header("Location: menu.php");
+            $stmt=$conn->prepare("SELECT COUNT(id) as nb FROM connexion WHERE nom=:nomc AND mdp=:motdp");
+            $stmt->bindValue(':motdp',$pwd,PDO::PARAM_STR);
+            $stmt->bindValue('nomc',$nom,PDO::PARAM_STR);
+            $stmt->execute();
+            $estconnecté=$stmt->fetch();
+            
+           
+            if($estconnecté['nb'])Header('Location: menu.php');
+            else {
+                $_SESSION["connect"]=1;
+               Header('Location: index.php');
+                }
         }
-        else{
-            $_SESSION['connect']++;
-            Header('Location: index.php');
-        }
-
-        $conn=null;
-    }
-    catch(PDOException $e){
-        echo "Erreur : " . $e->getMessage();
-        die;
-        }
-
+            catch(PDOException $e){
+            echo "Erreur : " . $e->getMessage();
+            die;
+            }
 ?>
     <p>vous êtes inscrit !</p>
 </body>
