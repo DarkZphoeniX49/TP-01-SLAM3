@@ -15,7 +15,7 @@
     $dbname='slamtp';
     $username = 'user2';
     $password = '1234';
-    $red=$_SESSION["connect"];
+    $red=$_SESSION["connect"] || 2;
  
 ?>
 
@@ -32,7 +32,7 @@
                 <input type="password" placeholder="Entrer le mot de passe" name="password" required>
 
                 <input type="submit" id='submit' value='sinscire'>       <div class="red"><?php
-                if($_SESSION["connect"]){
+                if($red==1){
                     echo 'erreur de connection !';
                 }
                 // Code de vérification 
