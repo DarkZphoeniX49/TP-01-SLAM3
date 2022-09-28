@@ -12,8 +12,22 @@
     $pwd=$_POST['pwd'];
 
     try{
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        
+            
         if(!$mdp || !$pwd || !$mail || !$pseudo){
             Header('Location: enregistrement.php');
+        }
+        else{
+            if($mdp==$pwd){
+                $req=$conn->prepare("INSERT INTO connexion (`nom`, `mdp`, `date_crea`, `date_activ`, `id`, `Mail`) VALUES (:pseudo, :mdp, CURRENT_DATE(), NULL, NULL, :mail);");
+                $req->bindValue(':pseudo',$pseudo,PDO::PARAM_STR);
+                $req->bindValue(':mdp',$mdp,PDO::PARAM_STR);
+                $req->bindValue(':mail',$pseudo,PDO::PARAM_STR);
+                $req->execute();
+                Header("Location: index.php");
+            }
+            else Header('Location:register.php');
         }
     }
     catch(PDOException $e){
