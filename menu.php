@@ -9,17 +9,13 @@
 <body>
     <?php 
      session_start();
-     $servername = 'localhost';
-             $dbname='slamtp';
-             $username = 'user2';
-             $password = '1234';
         $_SESSION["connect"]=0;
         echo "bienvenu".$_SESSION["nom"];
     
     
     ?>
-    <form action='endSession.php' method='POST'>
-    <input type='submit' placeholder="deconexion" name='deconexion'/>
+   <form action='endSession.php' method='POST'>
+    <input type='submit' placeholder="deconexion" value='deconnexion' name='deconexion'/>
 </form>
 </body>
 </html>

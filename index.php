@@ -11,10 +11,6 @@
 	//Se connecter à la base de données
 	
 	session_start();
-    $servername = 'localhost';
-    $dbname='slamtp';
-    $username = 'user2';
-    $password = '1234';
     $red=$_SESSION["connect"];
  
 ?>

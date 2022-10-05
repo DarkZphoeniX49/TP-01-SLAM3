@@ -18,5 +18,8 @@
         <br>
         <input type='submit'/>
     </form>
+    <form action='index.php' method='POST'>
+    <input type='submit' placeholder="deconexion" value='retour' name='deconexion'/>
+</form>
 </body>
 </html>
