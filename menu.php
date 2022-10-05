@@ -18,5 +18,8 @@
     
     
     ?>
+    <form action='endSession.php' method='POST'>
+    <input type='submit' placeholder="deconexion" name='deconexion'/>
+</form>
 </body>
 </html>

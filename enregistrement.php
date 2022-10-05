@@ -1,5 +1,6 @@
 <?php 
     session_start();
+    ini_set('display_errors', 'off');
     $servername = 'localhost';
     $dbname='slamtp';
     $username = 'user2';
@@ -20,6 +21,7 @@
         }
         else{
             if($mdp==$pwd){
+                $mdp=password_hash($mdp,PASSWORD_DEFAULT );
                 $req=$conn->prepare("INSERT INTO connexion (`nom`, `mdp`, `date_crea`, `date_activ`, `id`, `Mail`) VALUES (:pseudo, :mdp, CURRENT_DATE(), NULL, NULL, :mail);");
                 $req->bindValue(':pseudo',$pseudo,PDO::PARAM_STR);
                 $req->bindValue(':mdp',$mdp,PDO::PARAM_STR);

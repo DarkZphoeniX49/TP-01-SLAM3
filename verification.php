@@ -23,25 +23,41 @@ $servername = 'localhost';
             $pwd=$_POST["password"];
             $_SESSION["nom"]=$nom;
 
-            $stmt=$conn->prepare("SELECT COUNT(id) as nb FROM connexion WHERE nom=:nomc AND mdp=:motdp");
-            $stmt->bindValue(':motdp',$pwd,PDO::PARAM_STR);
-            $stmt->bindValue('nomc',$nom,PDO::PARAM_STR);
-            $stmt->execute();
-            $estconnecté=$stmt->fetch();
-            
+            $req=$conn->prepare('SELECT mdp FROM connexion WHERE nom=:nomc');
+            $req->bindValue('nomc',$nom,PDO::PARAM_STR);
+            $req->execute();
+            $mdps=$req->fetch();
+            $mdpCrypt=$mdps['mdp'];
+
+            if(password_verify($pwd,$mdpCrypt)){
+
+                $stmt=$conn->prepare("SELECT COUNT(id) as nb FROM connexion WHERE nom=:nomc");
+                $stmt->bindValue('nomc',$nom,PDO::PARAM_STR);
+                $stmt->execute();
+                $estconnecté=$stmt->fetch();
+   
+                
            
             if($estconnecté['nb'])Header('Location: menu.php');
-            else {
+            else 
+            {
                 $_SESSION["connect"]=1;
                Header('Location: index.php');
-                }
+            }
+            }
+            else {
+                $_SESSION["connect"]=1;
+                Header('Location: index.php');}
         }
-            catch(PDOException $e){
+            catch(PDOException $e)
+            {
             echo "Erreur : " . $e->getMessage();
             die;
+            Header('Location : index.php');
             }
 ?>
-    <p>vous êtes inscrit !</p>
+
+   
 </body>
 
 </html>
